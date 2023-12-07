@@ -1,29 +1,29 @@
 import { Database } from 'bun:sqlite';
 
-export interface Book {
+export interface Movie {
   id?: number;
   name: string;
   author: string;
 }
 
-export class BooksDatabase {
+export class MoviesDatabase {
   private db: Database;
 
   constructor() {
-      this.db = new Database('books.db');
+      this.db = new Database('movies.db');
       // Initialize the database
       this.init()
           .then(() => console.log('Database initialized'))
           .catch(console.error);
   }
 
-  // Get all books
-  async getBooks() {
-      return this.db.query('SELECT * FROM books').all();
+  // Get all movies
+  async getMovies() {
+      return this.db.query('SELECT * FROM movies').all();
   }
 
   // Initialize the database
   async init() {
-    return this.db.run('CREATE TABLE IF NOT EXISTS books (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, author TEXT)');
+    return this.db.run('CREATE TABLE IF NOT EXISTS movies (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, author TEXT)');
   }
 }
