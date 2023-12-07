@@ -28,7 +28,7 @@ export class MoviesDatabase {
   }
 
   async getMovie(id: number) {
-    return this.db.query(`SELECT * FROM movies WHERE id=${id}`).get();
+    return this.db.query(`SELECT * FROM movies WHERE id=${id}`).get() as Movies;
   }
 
   // Initialize the database
