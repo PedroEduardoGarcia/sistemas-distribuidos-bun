@@ -22,13 +22,24 @@ export class MoviesDatabase {
       return this.db.query('SELECT * FROM movies').all();
   }
 
+  // Add a movie
+  async addMovie(movie: Movie) {
+      // q: Get id type safely
+      return this.db.query(`INSERT INTO movies (name, author) VALUES (?, ?) RETURNING id`).get(movie.name, movie.author) as Movie;
+  }
+
+  // Update a movie
+  async updateMovie(id: number, movie: Movie) {
+    return this.db.run(`UPDATE movies SET name = '${movie.name}', author = '${movie.author}' WHERE id = ${id}`)
+  }
+
   // Delete a movie
   async deleteMovie(id: number) {
       return this.db.run(`DELETE FROM movies WHERE id = ${id}`)
   }
 
   async getMovie(id: number) {
-    return this.db.query(`SELECT * FROM movies WHERE id=${id}`).get() as Movies;
+    return this.db.query(`SELECT * FROM movies WHERE id=${id}`).get() as Movie;
   }
 
   // Initialize the database
